@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Dice Game</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="css\style.css">
 </head>
+
 <body>
-    <h1>Dzialaaaa</h1>
+    <div class="container">
+        <div class="panel panel--left">
+            <div class="panel__box panel__box--name">Player 1</div>
+            <div class="panel__box panel__box--totalScore">Total Score: 60</div>
+            <div class="panel__box panel__box--roundScore">Round Score: 12</div>
+            <img src="images/dice-1.png" alt="dice" class="panel__box--dice ">
+        </div>
+        <div class="panel panel--right">
+            <div class="panel__box panel__box--name">Player 2</div>
+            <div class="panel__box panel__box--totalScore">Total Score: 60</div>
+            <div class="panel__box panel__box--roundScore">Round Score: 12</div>
+            <img src="images/dice-1.png" alt="dice" class="panel__box--dice ">
+        </div>
+
+        <div class="menu">
+            <div class="menu__item">
+                <span>Roll Dice</span>
+                <svg class="icon">
+                    <use xlink:href="images/sprite.svg#icon-dice"></use>
+                </svg>
+            </div>
+            <div class="menu__item">
+                <span>Hold</span>
+                <svg class="icon">
+                    <use xlink:href="images/sprite.svg#icon-cart"></use>
+                </svg>
+            </div>
+            <div class="menu__item">
+                <span>Restart</span>
+                <svg class="icon">
+                    <use xlink:href="images/sprite.svg#icon-undo"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
+
 </html>

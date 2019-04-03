@@ -1,0 +1,48 @@
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // width: minmax(600px, 30%);
+    width: 55rem;
+    padding: 2rem 3rem;
+    background-color: rgba(245, 245, 245, 0.6);
+    position: absolute;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: .5rem;
+    box-shadow: .5rem .5rem .5rem rgba(22, 22, 22, 0.7);
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all .2s;
+
+        & span {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-right: 2rem;
+            transition: all .2s;
+        }
+
+        & .icon {
+            width: 3rem;
+            height: 3rem;
+            transition: all .2s;
+        }
+
+        &:hover {
+            transform: scale(1.05);
+
+            & span {
+                color: rgb(175, 127, 22);
+            }
+
+            & .icon {
+                fill: rgb(175, 127, 22)
+            }
+        }
+
+    }
+}
