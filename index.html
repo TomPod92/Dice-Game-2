@@ -13,33 +13,38 @@
 
 <body>
     <div class="container">
-        <div class="panel panel--left">
+        <div class="panel panel--left active">
             <div class="panel__box panel__box--name">Player 1</div>
             <div class="panel__box panel__box--totalScore">Total Score: 60</div>
             <div class="panel__box panel__box--roundScore">Round Score: 12</div>
-            <img src="images/dice-1.png" alt="dice" class="panel__box--dice ">
+            <div class="panel__box panel__box--dice">
+                <img src="images/dice-1.png" alt="dice">
+            </div>
         </div>
+
         <div class="panel panel--right">
             <div class="panel__box panel__box--name">Player 2</div>
             <div class="panel__box panel__box--totalScore">Total Score: 60</div>
             <div class="panel__box panel__box--roundScore">Round Score: 12</div>
-            <img src="images/dice-1.png" alt="dice" class="panel__box--dice ">
+            <div class="panel__box panel__box--dice">
+                <img src="images/dice-1.png" alt="dice">
+            </div>
         </div>
 
         <div class="menu">
-            <div class="menu__item">
+            <div class="menu__item menu__item--roll">
                 <span>Roll Dice</span>
                 <svg class="icon">
                     <use xlink:href="images/sprite.svg#icon-dice"></use>
                 </svg>
             </div>
-            <div class="menu__item">
+            <div class="menu__item menu__item--hold">
                 <span>Hold</span>
                 <svg class="icon">
                     <use xlink:href="images/sprite.svg#icon-cart"></use>
                 </svg>
             </div>
-            <div class="menu__item">
+            <div class="menu__item menu__item--restart">
                 <span>Restart</span>
                 <svg class="icon">
                     <use xlink:href="images/sprite.svg#icon-undo"></use>
@@ -48,7 +53,11 @@
         </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="scripts/Player.js"></script>
+    <script src="scripts/Draw.js"></script>
+    <script src="scripts/Result.js"></script>
+    <script src="scripts/Game.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 
 </html>
