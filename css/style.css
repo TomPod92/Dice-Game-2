@@ -26,7 +26,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; }
+  flex-direction: column;
+  transition: all 1s; }
+  .panel > * {
+    transition: all 1s; }
   .panel--left {
     background-image: linear-gradient(to right top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(../images/1.jpg); }
   .panel--right {
@@ -52,13 +55,24 @@ body {
       padding: 1rem 2rem; }
     .panel__box--dice {
       width: 11rem;
-      height: 11rem; }
+      height: 11rem;
+      background-color: transparent;
+      box-shadow: none; }
       .panel__box--dice img {
         width: 100%;
         height: 100%;
         filter: brightness(95%);
         border-radius: .5rem;
         overflow: hidden; }
+
+.active {
+  flex: 0 0 75%; }
+
+.passive {
+  flex: 0 0 25%; }
+  .passive > * {
+    transform: scale(0.7);
+    opacity: 0.2; }
 
 .menu {
   display: flex;

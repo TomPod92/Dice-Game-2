@@ -5,6 +5,11 @@ class Draw {
 
         this.getCurrentRoll = () => _currentRoll;
         this.getResults = () => _results;
+        
+        this.deleteRoll = () => {
+            _currentRoll = 0;
+            _results = [];
+        }
 
 
         this.roll = () => {

@@ -7,6 +7,11 @@ class Player {
         let _roundScore = 0;
         this.getRoundScore = () => _roundScore;
         this.updateRoundScore = (value) => _roundScore += value;
+
+        this.resetRoundScores = () => _roundScore = 0;
+            
     }
 
 }
+
+

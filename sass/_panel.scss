@@ -15,6 +15,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: all 1s;
+
+    &>* {
+        transition: all 1s;
+    }
 
     &--left {
         background-image: linear-gradient(to right top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(../images/1.jpg);
@@ -25,7 +30,6 @@
     }
 
     &__box {
-
         background-color: rgba(245, 245, 245, 0.6);
         font-size: 3rem;
         font-weight: bold;
@@ -55,6 +59,8 @@
         &--dice {
             width: 11rem;
             height: 11rem;
+            background-color: transparent;
+            box-shadow: none;
 
             & img {
                 width: 100%;
@@ -64,5 +70,19 @@
                 overflow: hidden;
             }
         }
+    }
+}
+
+.active {
+    flex: 0 0 75%;
+
+}
+
+.passive {
+    flex: 0 0 25%;
+
+    &>* {
+        transform: scale(0.7);
+        opacity: 0.2;
     }
 }
