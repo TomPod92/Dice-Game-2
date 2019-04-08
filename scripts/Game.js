@@ -1,5 +1,7 @@
 class Game {
-    constructor() {
+    constructor(winCondition = 100) {
+        // ustalamy liczbe puntktow ktora daje zwyciestwo
+        this.winCondition = winCondition;
         // pobieramy wszystkie divy
         // lewy panel
         this.panelLeft = document.querySelector('.panel--left');
@@ -19,31 +21,23 @@ class Game {
         this.divHold = document.querySelector('.menu__item--hold');
         this.divRestart = document.querySelector('.menu__item--restart');
 
-        // ustawiamy event listiner na przycisku ROLL
-        this.divRoll.addEventListener('click', this.rollDice);
-        this.divHold.addEventListener('click', this.endRound);
-        this.divRestart.addEventListener('click', this.Restart);
-
-        // this.newGame()
+        // ustawiamy event listinera na przyciskach
+        this.divRoll.addEventListener('click', this.rollDice.bind(this));
+        this.divHold.addEventListener('click', this.endRound.bind(this));
+        this.divRestart.addEventListener('click', this.Restart.bind(this));
     }
-
-    // newGame() {
-    //     this.player_1 = new Player();
-    //     this.player_2 = new Player();
-    //     this.draw = new Draw();
-    //     this.result = new Result();
-    // }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     rollDice() {
         // sprawdzamy ktory gracz jest "aktywny" (zwroci tablice [obiekt, DOM element])
-        const activePlayer = game.checkPlayer();
+        const activePlayer = this.checkPlayer();
 
         // losujemy liczbe i wrzucamy ja do zmiennej "currentRoll" w obiekcie DRAW
         draw.roll();
         console.log(`wylosowalismy: ${draw.getCurrentRoll()}`)
 
         // wyrenderowac kosc na panelu
-        game.renderDice(activePlayer, draw.getCurrentRoll());
+        this.renderDice(activePlayer, draw.getCurrentRoll());
 
         // sprawdzamy czy juz raz jej nie wyrzucilismy
         if (draw.getResults().includes(draw.getCurrentRoll())) {
@@ -56,14 +50,14 @@ class Game {
             console.log(`tablica w obiekcie Draw wynosi: ${draw.getResults()}`);
 
             // zmiana aktywnego gracza - koniec kolejki
-            game.changeActivePlayer()
+            this.changeActivePlayer()
 
             // usuniecie kosci z panelu
-            game.leftDice.innerHTML = '';
-            game.rightDice.innerHTML = '';
+            this.leftDice.innerHTML = '';
+            this.rightDice.innerHTML = '';
 
             // przesuniecie menu
-            // game.slideMenu(activePlayer);
+            // this.slideMenu(activePlayer);
         }
 
         // wrzucamy wynik rzutu do tablicy "results" w obiekcie DRAW (chyba ze wyzerowalismy rzut) 
@@ -71,16 +65,18 @@ class Game {
         console.log(`Nie rzucilismy dubletu, wiec tablica w obiekcie Draw wynosi: ${draw.getResults()}`);
 
         // aktualizujemy "round score" gracza i panel
-        game.updateRoundScore(activePlayer);
+        this.updateRoundScore(activePlayer);
 
         console.log('-------------------------------------')
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     checkPlayer() {
-        if (game.panelLeft.classList.contains('active')) return [player_1, game.panelLeft];
-        else if (game.panelRight.classList.contains('active')) return [player_2, game.panelRight];
+        if (this.panelLeft.classList.contains('active')) return [player_1, this.panelLeft];
+        else if (this.panelRight.classList.contains('active')) return [player_2, this.panelRight];
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     updateRoundScore(player) {
         // aktualizacja "roundScore" w obiekcie
         player[0].updateRoundScore(draw.getCurrentRoll());
@@ -89,7 +85,8 @@ class Game {
         // aktualizacja "roundScore" na panelu
         player[1].querySelector('.panel__box--roundScore').textContent = `round score: ${player[0].getRoundScore()}`;
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     updateTotalScore(player) {
         // aktualizacja "roundScore" w obiekcie
         player[0].updateTotalScore(player[0].getRoundScore());
@@ -97,16 +94,17 @@ class Game {
         // aktualizacja "roundScore" na panelu
         player[1].querySelector('.panel__box--totalScore').textContent = `total score: ${player[0].getTotalScore()}`;
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     endRound() {
         // nacisniecie holda mozliwe jest tylko jezeli juz cos wylosowalismy
         if (draw.getCurrentRoll() == 0) return;
 
         // sprawdzamy ktory gracz jest "aktywny" (zwroci tablice [obiekt, DOM element])
-        const activePlayer = game.checkPlayer();
+        const activePlayer = this.checkPlayer();
 
         // aktualizacja "totalScore" w obiekcie PLAYER i na panelu
-        game.updateTotalScore(activePlayer)
+        this.updateTotalScore(activePlayer)
 
         // zerujemy "roundScore" w obiekcie PLAYER
         activePlayer[0].resetRoundScores();
@@ -115,18 +113,19 @@ class Game {
         activePlayer[1].querySelector('.panel__box--roundScore').textContent = 'roundScore = 0';
 
         // sprwadzenie czy nie zostal osiagniety koniec gry
-        game.checkWinner(activePlayer);
+        this.checkWinner(activePlayer);
 
         // resetowanie obiektu DRAW
         draw.deleteRoll();
 
         // zmiana aktywnego gracza - koniec kolejki
-        game.changeActivePlayer()
+        this.changeActivePlayer()
 
         // usuniecie kosci z panelu
-        game.renderDice(activePlayer, draw.getCurrentRoll())
+        this.renderDice(activePlayer, draw.getCurrentRoll())
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     changeActivePlayer() {
         this.panelLeft.classList.toggle('active');
         this.panelLeft.classList.toggle('passive');
@@ -134,9 +133,9 @@ class Game {
         this.panelRight.classList.toggle('active');
         this.panelRight.classList.toggle('passive');
     }
-
-    renderDice = (player, number) => {
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    renderDice(player, number) {
         let markup = '';
 
         // jezeli gracz nacisnal "hold" lub wyrzucil dublet "markup" bedzie puste co usunie kosc z panelu
@@ -144,33 +143,34 @@ class Game {
 
         player[1].querySelector('.panel__box--dice').innerHTML = markup;
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     Restart() {
-        console.log('dziala');
         player_1 = new Player();
         player_2 = new Player();
         draw = new Draw();
         result = new Result();
 
-        game.changeActivePlayer();
-        game.leftTotalScore.innerHTML = 'total score: 0';
-        game.leftRoundScore.innerHTML = 'round score: 0';
-        game.leftDice.innerHTML = '';
+        this.changeActivePlayer();
+        this.leftTotalScore.innerHTML = 'total score: 0';
+        this.leftRoundScore.innerHTML = 'round score: 0';
+        this.leftDice.innerHTML = '';
 
-        game.rightTotalScore.innerHTML = 'total score: 0';
-        game.rightRoundScore.innerHTML = 'round score: 0';
-        game.rightDice.innerHTML = '';
+        this.rightTotalScore.innerHTML = 'total score: 0';
+        this.rightRoundScore.innerHTML = 'round score: 0';
+        this.rightDice.innerHTML = '';
     }
-
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     checkWinner(player) {
-        if (player[0].getTotalScore() >= 10) {
+        if (player[0].getTotalScore() >= this.winCondition) {
             alert('wygrales');
-            game.Restart();
+            this.Restart();
         }
     }
 
     // slideMenu(player) {
-    //     const diceWidth = game.leftDice.offsetWidth;
+    //     const diceWidth = this.leftDice.offsetWidth;
     //     let diceLeftX;
     //     console.log(player[1]);
     //     if (player[1].classList.contains('panel--left')) {

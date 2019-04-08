@@ -3,6 +3,10 @@
     width: 100vw;
     height: 100vh;
     position: relative;
+
+    @include mediaQuery (tablet) {
+        flex-direction: column;
+    }
 }
 
 .panel {
@@ -61,6 +65,14 @@
             height: 11rem;
             background-color: transparent;
             box-shadow: none;
+
+            @include mediaQuery (tablet) {
+                width: 9rem;
+                height: 9rem;
+                transform: translateY(-20%);
+            }
+
+
 
             & img {
                 width: 100%;
